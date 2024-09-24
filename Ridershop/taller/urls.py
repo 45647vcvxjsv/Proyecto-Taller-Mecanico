@@ -25,5 +25,5 @@ urlpatterns = [
     path('registro/', views.registro_usuario, name='registro'),
     path('perfil/', views.perfil_cliente, name='perfil_cliente'),
     path('crear-cita/', crear_cita, name='crear_cita'),
-    path('confirmacion-cita/<int:cita_id>/', cita_confirmacion, name='cita_confirmacion'),
+    path('cita-confirmacion/<int:cita_id>/', cita_confirmacion, name='cita_confirmacion'),
 ]

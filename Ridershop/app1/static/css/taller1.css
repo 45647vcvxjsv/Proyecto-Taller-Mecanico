@@ -1,0 +1,41 @@
+/* static confirmacion de citas */
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('/Ridershop/app1/static/imagenes/imagenescita.png');
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+}
+
+button {
+    grid-column: 1 / -1;
+    justify-self: center;
+}

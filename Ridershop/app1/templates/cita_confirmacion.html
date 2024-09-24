@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cita Creada - Taller Mecánico</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/taller1.css' %}">
 </head>
 
 <body>
-    <h1>!Cita Creada Con exito!</h1>
-    <p>Su Numero de cita es: {{ cita.id }}</p>
-    <p>Hora agendada: {{ cita.fecha }} a las {{ cita.hora }}</p>
+    <div class="container create-appointment"> <!-- Clase específica -->
+        <h1>¡Cita Creada Con Éxito!</h1>
+        <p>Su número de cita es: {{ cita.id }}</p>
+        <p>Hora agendada: {{ cita.fecha }} a las {{ cita.hora }}</p>
 
-    <a href="{% url 'index' %}"> Volver a la pagina principal</a>
+        <a href="{% url 'index' %}">Volver a la página principal</a>
+    </div>
 </body>
 
 </html>

@@ -14,8 +14,8 @@ def crear_cita(request):
     if request.method == 'POST':
         form = CitaForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('cita_confirmacion', cita_id=Cita.id)  # Redirige a una página de éxito o al índice
+            cita = form.save()  # Guarda la cita y la asigna a la variable cita
+            return redirect('cita_confirmacion', cita_id=cita.id)  # Redirige usando el ID de la cita recién creada
     else:
         form = CitaForm()
     return render(request, 'crear_cita.html', {'form': form})
@@ -23,6 +23,7 @@ def crear_cita(request):
 def cita_confirmacion(request, cita_id):
     cita = get_object_or_404(Cita, id=cita_id)
     return render(request, 'cita_confirmacion.html', {'cita': cita})
+
 
 def registro_usuario(request):
     if request.method == 'POST':
