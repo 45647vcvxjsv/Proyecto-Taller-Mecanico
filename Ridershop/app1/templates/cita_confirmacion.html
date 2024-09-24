@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>!Cita Creada Con exito!</h1>
+    <p>Su Numero de cita es: {{ cita.id }}</p>
+    <p>Hora agendada: {{ cita.fecha }} a las {{ cita.hora }}</p>
+
+    <a href="{% url 'index' %}"> Volver a la pagina principal</a>
+</body>
+
+</html>

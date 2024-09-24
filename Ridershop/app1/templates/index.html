@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RiderShop Taller</title>
+    <!-- Cargar Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% load static %}
+    <!-- Incluir taller.css -->
+    <link rel="stylesheet" href="{% static 'css/taller.css' %}">
+    <link rel="icon" type="trashmobz-alpha/png" sizes="16x16"
+        href="/Ridershop/app1/static/imagenes/trashmobz-alpha.png">
+</head>
+
+<body>
+
+    <!-- Barra de Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">RiderShop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#agenda-tu-visita">Agenda Tu Visita</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Bienvenida -->
+    <header class="header bg-dark text-white text-center py-5">
+        <div class="container">
+            <h4 class="header-subtitle">Bienvenidos a tu taller</h4>
+            <h1 class="header-title">RiderShop</h1>
+            <p class="lead">Donde tu bebe estará en buenas manos</p>
+        </div>
+    </header>
+
+    <!-- Sección de Información -->
+    <div class="container mt-5">
+        <div id="estado-reparaciones" class="row text-center">
+            <!-- Estado de Reparaciones -->
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h3 class="card-title">Estados de Reparaciones</h3>
+                        <p class="card-text">Revisa el estado de tu bebe</p>
+                        <button class="btn btn-outline-danger" id="btnEstado">Revisar su estado</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del Taller -->
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h3 class="card-title">Nuestro Taller</h3>
+                        <ul class="list-unstyled">
+                            <li><strong>Dirección:</strong> La Calera 223</li>
+                            <li><strong>Email:</strong> ridershop@gmail.com</li>
+                            <li><strong>Teléfono:</strong> + (56) 954321247</li>
+                            <li><strong>Comuna:</strong> Lo Espejo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Venta de Repuestos -->
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h3 class="card-title">Venta de Repuestos</h3>
+                        <form>
+                            <div class="form-group">
+                                <label for="marca">Marca</label>
+                                <select id="marca" class="form-control">
+                                    <option value="">Selecciona una marca</option>
+                                    <option value="bmw">BMW</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="modelo">Modelo</label>
+                                <select id="modelo" class="form-control">
+                                    <option value="">Selecciona un modelo</option>
+                                    <option value="series1">Series 1</option>
+                                    <option value="a3">A3</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cotizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Solicitud de Datos -->
+    <div id="estadoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h4>Ingresa tus Datos</h4>
+            <form id="modalForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" class="form-control" placeholder="Andres" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="1234@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="Numero de solicitud">Numero de solicitud</label>
+                    <input type="text" id="numerosolicitud" class="form-control" placeholder="5682145" required>
+                </div>
+                <div class="form-group">
+                    <label for="tipoVehiculo">Tipo de Vehículo</label>
+                    <select id="tipoVehiculo" class="form-control" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="moto">Moto</option>
+                        <option value="vehiculo">Vehículo</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!--Seccion de contactos-->
+    <section id="agenda-tu-visita" class="bg-light py-5">
+        <div class="container">
+            <h3 class="text-center mb-4">Agenda tu Visita</h3>
+            <div class="row">
+                <!-- Columna para el formulario -->
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <h4 class="text-center mb-4">Inicia sesión o regístrate</h4>
+
+                    <!-- Botón de Google Sign-In -->
+                    <div class="text-center mb-4">
+                        <button id="googleSignIn" class="btn btn-light btn-block">
+                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                                alt="Google logo" width="18" height="18">
+                            Iniciar sesión con Google
+                        </button>
+                    </div>
+
+                    <form action="{% url 'crear_cita' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="firstName">Nombre</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Marcos">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Apellidos</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Salvatierra">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="1234@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="+56958240898">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea class="form-control" id="message" rows="4"
+                                placeholder="Escribe tu mensaje"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Enviar Mensaje</button>
+                    </form>
+                </div>
+
+                <!-- Columna para el mapa -->
+                <div class="col-lg-6 col-md-12">
+                    <div class="map-container">
+                        <!-- Aquí puedes insertar un iframe de Google Maps -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.5594132625797!2d-123.12165368468147!3d37.40204597982444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e7dd98c4b9d%3A0xe2f59d8d2b91377b!2sLa%20Tienda%20Taller!5e0!3m2!1sen!2scl!4v1630704465677!5m2!1sen!2scl"
+                            width="100%" height="530" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; 2024 RiderShop - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Cargar el archivo JavaScript -->
+    <script src="{% static 'js/taller.js' %}"></script>
+
+</body>
+
+</html>
