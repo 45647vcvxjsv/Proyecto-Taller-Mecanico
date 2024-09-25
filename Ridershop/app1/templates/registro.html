@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inicia tu sesion</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/taller1.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h2> Inicia tu sesion con nosotros </h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button type="submit">Pulsa Aqui</button>
+        </form>
+    </div>
+</body>
+
+</html>
