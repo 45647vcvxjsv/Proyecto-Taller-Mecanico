@@ -16,14 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app1.views import indexview, crear_cita, cita_confirmacion
-from app1 import views
+from app1.views import indexview, crear_cita, cita_confirmacion, registro_usuario, perfil_cliente
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', indexview, name='index'),
-    path('registro/', views.registro_usuario, name='registro'),
-    path('perfil/', views.perfil_cliente, name='perfil_cliente'),
-    path('crear-cita/', crear_cita, name='crear_cita'),
-    path('cita-confirmacion/<int:cita_id>/', cita_confirmacion, name='cita_confirmacion'),
+    path('', indexview, name='index'),  # Página de inicio
+    path('registro/', registro_usuario, name='registro'),  # Registro de usuario
+    path('perfil/', perfil_cliente, name='perfil_cliente'),  # Perfil del cliente
+    path('crear-cita/', crear_cita, name='crear_cita'),  # Crear cita
+    path('cita-confirmacion/<int:cita_id>/', cita_confirmacion, name='cita_confirmacion'),  # Confirmación de cita
 ]

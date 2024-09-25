@@ -7,73 +7,57 @@ from app1.forms import CitaForm
 from .models import PerfilCliente
 from .forms import PerfilClienteForm
 
+# Vista para la página principal
 def indexview(request):
     return render(request, 'index.html')
 
-def crear_cita(request):
-    if request.method == 'POST':
-        form = CitaForm(request.POST)
-        if form.is_valid():
-            cita = form.save()  # Guarda la cita y la asigna a la variable cita
-            return redirect('cita_confirmacion', cita_id=cita.id)  # Redirige usando el ID de la cita recién creada
-    else:
-        form = CitaForm()
-    return render(request, 'crear_cita.html', {'form': form})
-
-def cita_confirmacion(request, cita_id):
-    cita = get_object_or_404(Cita, id=cita_id)
-    return render(request, 'cita_confirmacion.html', {'cita': cita})
-
-
-def registro_usuario(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('Perfil_Cliente')  # Redirige a la página de perfil del cliente
-    else:
-        form = UserCreationForm()
-    return render(request, 'registro.html', {'form': form})
-
-
-
+# Vista para crear una cita
 @login_required
-def perfil_cliente(request):
-    try:
-        perfil = request.user.perfilcliente
-    except PerfilCliente.DoesNotExist:
-        perfil = PerfilCliente(usuario=request.user)
-    
-    if request.method == 'POST':
-        form = PerfilClienteForm(request.POST, instance=perfil)
-        if form.is_valid():
-            form.save()
-            return redirect('crear_cita')
-    else:
-        form = PerfilClienteForm(instance=perfil)
-    
-    return render(request, 'perfil_cliente.html', {'form': form})
-
 def crear_cita(request):
     if request.method == 'POST':
         form = CitaForm(request.POST)
         if form.is_valid():
             cita = form.save(commit=False)
-            cita.cliente = request.user
+            cita.usuario = request.user  
             cita.save()
-            return redirect('cita_confirmacion', cita_id=cita.id)
+            return redirect('cita_confirmacion', cita_id=cita.id)  # Redirigir a la vista de confirmación de la cita
     else:
         initial_data = {
-            'nombre': request.user.get_full_name(),
+            'nombre': request.user.get_full_name(),  # Suponiendo que estás usando first_name y last_name
             'email': request.user.email,
             'telefono': request.user.perfilcliente.telefono if hasattr(request.user, 'perfilcliente') else ''
         }
         form = CitaForm(initial=initial_data)
     return render(request, 'crear_cita.html', {'form': form})
 
+# Vista para la confirmación de la cita
+@login_required
+def cita_confirmacion(request, cita_id):
+    cita = get_object_or_404(Cita, id=cita_id)
+    return render(request, 'cita_confirmacion.html', {'cita': cita})
 
+def registro_usuario(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save() 
+            login(request, user)  
+            return redirect('perfil_cliente')  # Redirigir a la vista de perfil del cliente
+    else:
+        form = UserCreationForm()
+    return render(request, 'registro.html', {'form': form})
 
-
-
-
+# Vista para la gestión del perfil del cliente
+@login_required
+def perfil_cliente(request):
+    perfil, created = PerfilCliente.objects.get_or_create(usuario=request.user)
+    
+    if request.method == 'POST':
+        form = PerfilClienteForm(request.POST, instance=perfil)
+        if form.is_valid():
+            form.save()
+            return redirect('crear_cita')  # Redirigir a la vista de crear cita después de guardar el perfil
+    else:
+        form = PerfilClienteForm(instance=perfil)
+    
+    return render(request, 'perfil_cliente.html', {'form': form})
