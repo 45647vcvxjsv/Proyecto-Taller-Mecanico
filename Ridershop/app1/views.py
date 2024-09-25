@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from app1.models import Cita
 from app1.forms import CitaForm 
-from .models import PerfilClientes
+from .models import PerfilCliente
 from .forms import PerfilClienteForm
 
 def indexview(request):
@@ -42,8 +42,8 @@ def registro_usuario(request):
 def perfil_cliente(request):
     try:
         perfil = request.user.perfilcliente
-    except PerfilClientes.DoesNotExist:
-        perfil = PerfilClientes(usuario=request.user)
+    except PerfilCliente.DoesNotExist:
+        perfil = PerfilCliente(usuario=request.user)
     
     if request.method == 'POST':
         form = PerfilClienteForm(request.POST, instance=perfil)
