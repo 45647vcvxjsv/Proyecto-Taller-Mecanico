@@ -1,13 +1,92 @@
-/* static confirmacion de citas js */
-
-document.getElementById('citaForm').addEventListener('submit', function (event)
+document.addEventListener('DOMContentLoaded', function ()
 {
-    const telefono = document.getElementById('telefono').value;
-    const telefonoRegex = /^\d{10}$/; // Ejemplo: solo 10 dígitos
+    // Inicializar Flatpickr para la fecha
+    const fechaInput = document.getElementById('fecha');
+    const fechaHiddenInput = document.getElementById('fecha_hidden');
 
-    if (telefono && !telefonoRegex.test(telefono))
+    flatpickr(fechaInput, {
+        dateFormat: "d/m/Y",
+        minDate: "today",
+        inline: true,
+        locale: "es",
+        onChange: function (selectedDates, dateStr)
+        {
+            fechaHiddenInput.value = dateStr;
+        }
+    });
+
+    // Inicializar Flatpickr para la hora
+    flatpickr("#hora", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        minTime: "09:00",
+        maxTime: "18:00",
+        locale: "es"
+    });
+
+    // Validación del formulario
+    const form = document.getElementById('citaForm');
+    form.addEventListener('submit', function (event)
     {
-        alert('El número de teléfono debe tener 10 dígitos.');
-        event.preventDefault(); // Detiene el envío del formulario
+        let isValid = true;
+
+        // Validar fecha
+        if (!fechaHiddenInput.value)
+        {
+            isValid = false;
+            mostrarError(fechaInput, 'Por favor, selecciona una fecha');
+        } else
+        {
+            ocultarError(fechaInput);
+        }
+
+        // Validar hora
+        const hora = document.getElementById('hora');
+        if (!hora.value)
+        {
+            isValid = false;
+            mostrarError(hora, 'Por favor, selecciona una hora');
+        } else
+        {
+            ocultarError(hora);
+        }
+
+        // Validar tipo de servicio
+        const tipoServicio = document.getElementById('tipo_servicio');
+        if (!tipoServicio.value)
+        {
+            isValid = false;
+            mostrarError(tipoServicio, 'Por favor, selecciona un tipo de servicio');
+        } else
+        {
+            ocultarError(tipoServicio);
+        }
+
+        if (!isValid)
+        {
+            event.preventDefault();
+        }
+    });
+
+    function mostrarError(elemento, mensaje)
+    {
+        let error = elemento.nextElementSibling;
+        if (!error || !error.classList.contains('error'))
+        {
+            error = document.createElement('div');
+            error.classList.add('error');
+            elemento.parentNode.insertBefore(error, elemento.nextSibling);
+        }
+        error.textContent = mensaje;
+    }
+
+    function ocultarError(elemento)
+    {
+        let error = elemento.nextElementSibling;
+        if (error && error.classList.contains('error'))
+        {
+            error.textContent = '';
+        }
     }
 });

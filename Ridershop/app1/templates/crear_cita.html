@@ -7,42 +7,51 @@
     <title>Crea tu cita con nosotros</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/taller1.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Para cuándo quieres tu cita</h1>
-        <form id="citaForm" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="fecha">Fecha de la cita:</label>
-                {{ form.fecha }}
-                {% if form.fecha.errors %}
-                <div class="error">{{ form.fecha.errors.0 }}</div>
-                {% endif %}
+        <h1>Crea tu cita con nosotros</h1>
+        <div class="form-container">
+            <div class="calendar-section">
+                <h2>¿Para cuándo quieres tu cita?</h2>
+                <input type="text" id="fecha" name="fecha" class="flatpickr" required>
             </div>
-            <div class="form-group">
-                <label for="hora">Hora de la cita:</label>
-                {{ form.hora }}
-                {% if form.hora.errors %}
-                <div class="error">{{ form.hora.errors.0 }}</div>
-                {% endif %}
+            <div class="details-section">
+                <form id="citaForm" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" id="fecha_hidden" name="fecha_hidden">
+                    <div class="form-group">
+                        <label for="hora">Hora de la cita:</label>
+                        <input type="text" id="hora" name="hora" class="flatpickr" required>
+                        {% if form.hora.errors %}
+                        <div class="error">{{ form.hora.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_servicio">Servicio requerido:</label>
+                        <select id="tipo_servicio" name="tipo_servicio" required>
+                            <option value="">Seleccione un servicio</option>
+                            <option value="mecanica">Mecánica</option>
+                            <option value="electrica">Eléctrica</option>
+                            <option value="carroceria">Carrocería</option>
+                            <option value="neumaticos">Neumáticos</option>
+                        </select>
+                        {% if form.tipo_servicio.errors %}
+                        <div class="error">{{ form.tipo_servicio.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="comentarios">Comentarios adicionales:</label>
+                        <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+                    </div>
+                    <button type="submit">Crear Cita</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="tipo_servicio">Servicio requerido:</label>
-                {{ form.tipo_servicio }}
-                {% if form.tipo_servicio.errors %}
-                <div class="error">{{ form.tipo_servicio.errors.0 }}</div>
-                {% endif %}
-            </div>
-            <div class="form-group">
-                <label for="comentarios">Comentarios adicionales:</label>
-                {{ form.comentarios }}
-            </div>
-            <button type="submit">Crear Cita</button>
-        </form>
+        </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
     <script src="{% static 'js/taller1.js' %}"></script>
 </body>
 

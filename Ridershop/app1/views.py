@@ -45,7 +45,7 @@ def registro_usuario(request):
             return redirect('perfil_cliente')  # Redirigir a la vista de perfil del cliente
     else:
         form = UserCreationForm()
-    return render(request, 'templates/registro.html', {'form': form})
+    return render(request, 'registro.html', {'form': form})
 
 
 # Vista para la gestión del perfil del cliente
