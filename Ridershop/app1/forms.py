@@ -10,7 +10,7 @@ class CitaForm(forms.ModelForm):
         self.usuario = kwargs.pop('usuario', None)
         super().__init__(*args, **kwargs)
         if self.usuario:
-            self.fields['vehiculo'].queryset = self.usuario.vehiculo_set.all()  
+            self.fields['vehiculo'].queryset = self.usuario.vehiculo_set.all()
 
     def save(self, commit=True):
         cita = super().save(commit=False)

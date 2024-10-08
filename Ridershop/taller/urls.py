@@ -27,5 +27,5 @@ urlpatterns = [
     path('perfil/', views.perfil_cliente, name='perfil_cliente'),
     path('crear-cita/', crear_cita, name='crear_cita'),
     path('cita-confirmacion/<int:cita_id>/', cita_confirmacion, name='cita_confirmacion'),
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),  # Corregido aquí
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
 ]

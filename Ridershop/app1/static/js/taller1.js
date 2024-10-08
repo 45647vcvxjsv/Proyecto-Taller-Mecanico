@@ -1,18 +1,10 @@
 document.addEventListener('DOMContentLoaded', function ()
 {
     // Inicializar Flatpickr para la fecha
-    const fechaInput = document.getElementById('fecha');
-    const fechaHiddenInput = document.getElementById('fecha_hidden');
-
-    flatpickr(fechaInput, {
-        dateFormat: "d/m/Y",
+    flatpickr("#fecha", {
+        dateFormat: "Y-m-d",
         minDate: "today",
-        inline: true,
-        locale: "es",
-        onChange: function (selectedDates, dateStr)
-        {
-            fechaHiddenInput.value = dateStr;
-        }
+        locale: "es"
     });
 
     // Inicializar Flatpickr para la hora
@@ -32,13 +24,14 @@ document.addEventListener('DOMContentLoaded', function ()
         let isValid = true;
 
         // Validar fecha
-        if (!fechaHiddenInput.value)
+        const fecha = document.getElementById('fecha');
+        if (!fecha.value)
         {
             isValid = false;
-            mostrarError(fechaInput, 'Por favor, selecciona una fecha');
+            mostrarError(fecha, 'Por favor, selecciona una fecha');
         } else
         {
-            ocultarError(fechaInput);
+            ocultarError(fecha);
         }
 
         // Validar hora
@@ -50,6 +43,17 @@ document.addEventListener('DOMContentLoaded', function ()
         } else
         {
             ocultarError(hora);
+        }
+
+        // Validar tipo de vehículo
+        const tipoVehiculo = document.getElementById('tipo_vehiculo');
+        if (!tipoVehiculo.value)
+        {
+            isValid = false;
+            mostrarError(tipoVehiculo, 'Por favor, selecciona un tipo de vehículo');
+        } else
+        {
+            ocultarError(tipoVehiculo);
         }
 
         // Validar tipo de servicio

@@ -23,7 +23,7 @@ def crear_cita(request):
             return redirect('cita_confirmacion', cita_id=cita.id)  # Redirigir a la vista de confirmación de la cita
     else:
         initial_data = {
-            'nombre': request.user.get_full_name(),  # Suponiendo que estás usando first_name y last_name
+            'nombre': request.user.get_full_name(),
             'email': request.user.email,
             'telefono': request.user.perfilcliente.telefono if hasattr(request.user, 'perfilcliente') else ''
         }
